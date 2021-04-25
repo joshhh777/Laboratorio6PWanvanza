@@ -84,6 +84,14 @@ app.get('/', (request, response) => {
         response.status(404).end()
       }
     })
+  
+  app.delete('/api/personas/:id', (request, response) => {
+      const id = Number(request.params.id)
+      personas = personas.filter(persona => persona.id !== id)
+      response.status(204).end()
+      })
+
+
 
   app.post('/api/notes', (request, response) => {
     console.log(request.body.important)
