@@ -33,6 +33,8 @@ let personas = [
   }
 ]
 
+const tamaño = personas.length
+const tiempo = new Date().toString()
 /*
 const [notas, setNota] = useState([])
  notas = notes
@@ -55,12 +57,19 @@ function nuevo(){
 
 */
 
+
 app.get('/', (request, response) => {
     response.send('<h1>Hola Jose Cancino</h1>')
   })
   
   app.get('/api/personas', (request, response) => {
     response.json (personas)
+  })
+
+  app.get('/api/personas/info', (request, response) => {
+    response.send ("<h1>La agenda tiene informacion para "+tamaño + " personas</h1>" + 
+                     " <h2>La solicitud se hizo en el tiempo de " + tiempo +"</h2>") 
+    
   })
 
   app.post('/api/notes', (request, response) => {
