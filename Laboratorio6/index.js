@@ -58,12 +58,15 @@ function nuevo(){
 */
 
 
+
+
 app.get('/', (request, response) => {
     response.send('<h1>Hola Jose Cancino</h1>')
   })
   
   app.get('/api/personas', (request, response) => {
-    response.json (personas)
+    response.writeHead(200, { 'Content-Type': 'application/json' })
+    response.end(JSON.stringify(personas))
   })
 
   app.get('/api/personas/info', (request, response) => {
@@ -71,6 +74,16 @@ app.get('/', (request, response) => {
                      " <h2>La solicitud se hizo en el tiempo de " + tiempo +"</h2>") 
     
   })
+
+  app.get('/api/personas/:id', (request, response) => {
+    const id = Number(request.params.id)
+    const persona = personas.find(persona =>  persona.id === id)
+    if(persona){
+      response.json(persona)
+      }else{
+        response.status(404).end()
+      }
+    })
 
   app.post('/api/notes', (request, response) => {
     console.log(request.body.important)
