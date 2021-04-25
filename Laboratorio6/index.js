@@ -6,64 +6,42 @@ app.use(express.json())
 let personas = [
   {
     id: 1,
-    name:"Pablo Perez",
-    number:"+51980567123"
+    nombre:"Pablo Perez",
+    numero:"+51980567123"
   },
   {
     id: 2,
-    name:"Jose Cancino",
-    number:"+51932199913"
+    nombre:"Jose Cancino",
+    numero:"+51932199913"
   },
   {
     id: 3,
-    name:"Marta Garcia",
-    number:"+51980012332"
+    nombre:"Marta Garcia",
+    numero:"+51980012332"
   },
   
   {
     id: 4,
-    name:"Noel Santiago",
-    number:"+51980012332"
+    nombre:"Noel Santiago",
+    numero:"+51980012332"
   },
   
   {
     id: 5,
-    name:"Bad Bunny",
-    number:"+51992005123"
+    nombre:"Bad Bunny",
+    numero:"+51992005123"
   }
 ]
 
 const tamaño = personas.length
 const tiempo = new Date().toString()
-/*
-const [notas, setNota] = useState([])
- notas = notes
-function nuevo(){
-  const nuevaNot= {
-    id: persona.length+1,
-    content: content,
-    date: date,
-    important: false
-  }
-  setNota([
-    ...notas,
-    nuevaNot,
-  ])      
-  console.log("hola")
-  return(
-    {notes}
-  )
-}
-
-*/
-
 
 
 
 app.get('/', (request, response) => {
     response.send('<h1>Hola Jose Cancino</h1>')
   })
-  
+
   app.get('/api/personas', (request, response) => {
     response.writeHead(200, { 'Content-Type': 'application/json' })
     response.end(JSON.stringify(personas))
@@ -91,12 +69,24 @@ app.get('/', (request, response) => {
       response.status(204).end()
       })
 
+  app.post('/api/personas', (request, response) => {
+      const persona = request.body
+
+      const nuevaPersona ={
+        id: Math.floor( Math.random()*100),
+        nombre: persona.nombre,
+        numero: persona.numero
+      }
+
+      personas = [
+        ...personas,
+         nuevaPersona
+      ]
+
+      response.json(nuevaPersona)
+      })
 
 
-  app.post('/api/notes', (request, response) => {
-    console.log(request.body.important)
-    response.json(personas)
-  })
   
   const PORT = 3001
   app.listen(PORT, () => {
