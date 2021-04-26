@@ -72,6 +72,23 @@ app.get('/', (request, response) => {
   app.post('/api/personas', (request, response) => {
       const persona = request.body
 
+      if(!persona || !persona.nombre ){
+        return response.status(400).json({
+          error: "nombre is missing"
+        })
+      }
+      if(!persona || !persona.numero ){
+        return response.status(400).json({
+          error: "numero is missing"
+        })
+      }
+
+      if(!persona === !persona.numero ){
+        return response.status(400).json({
+          error: "nombre already exists"
+        })
+      }
+
       const nuevaPersona ={
         id: Math.floor( Math.random()*100),
         nombre: persona.nombre,
