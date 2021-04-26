@@ -1,4 +1,4 @@
-const express = require('express')
+import express from 'express'
 const app = express()
 
 app.use(express.json())
@@ -72,6 +72,8 @@ app.get('/', (request, response) => {
   app.post('/api/personas', (request, response) => {
       const persona = request.body
 
+      const pernombre = personas.map(pnombre => pnombre.nombre)
+
       if(!persona || !persona.nombre ){
         return response.status(400).json({
           error: "nombre is missing"
@@ -83,11 +85,14 @@ app.get('/', (request, response) => {
         })
       }
 
-      if(!persona === !persona.numero ){
+      if(!pernombre !== !persona.nombre ){
+        response.status(201).json(nuevaPersona)
+      }else{
         return response.status(400).json({
           error: "nombre already exists"
         })
       }
+      console.log(pernombre)
 
       const nuevaPersona ={
         id: Math.floor( Math.random()*100),
@@ -100,7 +105,7 @@ app.get('/', (request, response) => {
          nuevaPersona
       ]
 
-      response.json(nuevaPersona)
+      response.status(201).json(nuevaPersona)
       })
 
 
